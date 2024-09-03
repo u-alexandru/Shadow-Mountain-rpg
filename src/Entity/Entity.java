@@ -3,6 +3,8 @@ package Entity;
 import Enums.Direction;
 
 import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -10,6 +12,7 @@ public class Entity {
 
     public int x, y;
     public int speed;
+    public float scale = 1;
 
     public ArrayList<BufferedImage> upIdle;
     public ArrayList<BufferedImage> upWalk;
@@ -41,6 +44,17 @@ public class Entity {
         g2.drawImage(image, 0, 0, width, height, width, 0, 0, height, null);
         g2.dispose();
         return flippedImage;
+    }
+
+    public BufferedImage scaleImage(BufferedImage image, float scale) {
+        int width = (int) (image.getWidth() * scale);
+        int height = (int) (image.getHeight() * scale);
+        BufferedImage scaledImage = new BufferedImage(width, height, image.getType());
+        AffineTransform at = new AffineTransform();
+        at.scale(scale, scale);
+        AffineTransformOp scaleOp = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
+        scaledImage = scaleOp.filter(image, scaledImage);
+        return scaledImage;
     }
 
     public int spriteCounter = 0;

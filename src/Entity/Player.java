@@ -14,7 +14,7 @@ public class Player extends Entity {
 
     GamePanel gp;
     KeyHandler keyHandler;
-    short playerTileSize = 64;
+    short playerTileSize = 160;
 
     public Player(GamePanel gp, KeyHandler keyHandler) {
 
@@ -29,6 +29,7 @@ public class Player extends Entity {
         x = 100;
         y = 100;
         speed = 4;
+        scale = 1.5f;
     }
 
     public void getPlayerImage() {
